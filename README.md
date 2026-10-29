@@ -28,15 +28,21 @@ npx skills add /path/to/WorkSkills --list
 
 本地路径、Git 仓库来源及选项见 [skills CLI 官方说明](https://github.com/vercel-labs/skills/blob/main/docs/commands.md)。本项目遵循 [标准技能目录结构](https://github.com/vercel-labs/skills/blob/main/docs/creating-skills.md)，无需发布 npm 包。
 
-## 从 Git 仓库安装
+## 从 GitCode 安装
 
-将本目录作为仓库内容推送到 Git 服务后，可将本地路径替换为实际 Git URL：
+本目录内容推送到 [momocloud/WorkSkills](https://gitcode.com/momocloud/WorkSkills) 后，可使用完整 Git URL 安装：
 
 ```bash
-npx skills add <实际仓库URL> --skill remote-npu-environment
+npx skills add https://gitcode.com/momocloud/WorkSkills.git --skill remote-npu-environment
 ```
 
-这里仅提供可安装的目录；尚未创建或发布远端仓库。上述占位符不能直接运行。
+全局安装到 Codex：
+
+```bash
+npx skills add https://gitcode.com/momocloud/WorkSkills.git --skill remote-npu-environment --agent codex --global -y
+```
+
+私有仓库需要本机 Git 已具备访问权限；不要把令牌写进安装命令或仓库文件。
 
 ## 使用
 
