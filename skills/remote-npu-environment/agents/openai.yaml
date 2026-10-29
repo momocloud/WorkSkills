@@ -1,0 +1,3 @@
+interface:
+  display_name: "远端 NPU 环境管理"
+  short_description: "多机器 SSH 排查、普通用户初始化及 PyTorch/NPU 环境复现"
