@@ -6,6 +6,7 @@
 | --- | --- |
 | [ascend-distributed-context](skills/ascend-distributed-context/SKILL.md) | 新工作目录导入昇腾计算框架组分布式背景、torch-npu 仓库语境及通用工作习惯 |
 | [remote-npu-environment](skills/remote-npu-environment/SKILL.md) | 多机器 SSH 排查、普通用户初始化、PyTorch/torch-npu/CANN 版本选择、环境安装及重装恢复 |
+| [ascend-distributed-validation](skills/ascend-distributed-validation/SKILL.md) | 依具体用例执行分布式验证、整理可复现报告，以及采集分析 HCCL 状态与日志 |
 
 ## 从本地安装
 
@@ -55,6 +56,12 @@ npx skills add https://gitcode.com/momocloud/WorkSkills.git --skill remote-npu-e
 
 > 使用 remote-npu-environment，为这台新机器准备 NPU 开发环境；先和我确认 PyTorch、torch-npu 版本。
 
-安装背景 skill 时，将上面安装命令的 `--skill remote-npu-environment` 替换为 `--skill ascend-distributed-context` 即可。
+> 使用 ascend-distributed-validation，先根据这些用例的说明和实现确定各自的执行方式，再按指定范围验证并生成报告。
+
+> 使用 ascend-distributed-validation，分析现有的 HCCL 日志并整理定位材料，不重跑用例。
+
+三个技能按当前任务独立选用；远程环境准备不默认触发测试。验证技能不预设启动器、卡数或固定测试矩阵。
+
+安装其他 skill 时，将上面安装命令的 `--skill remote-npu-environment` 替换为 `--skill ascend-distributed-context` 或 `--skill ascend-distributed-validation`。
 
 每个技能的内容都包含在对应的 `skills/<skill-name>/` 内，安装后无需原任务目录或原工作区的 `REMOTE_ENVIRONMENT.md`。维护时以技能目录内的文件为安装内容，原约定文档不会被自动同步。
