@@ -4,7 +4,7 @@
 
 | Skill | 用途 |
 | --- | --- |
-| [ascend-distributed-context](skills/ascend-distributed-context/SKILL.md) | 新工作目录导入昇腾计算框架组分布式背景、torch-npu 仓库语境及通用工作习惯 |
+| [ascend-distributed-context](skills/ascend-distributed-context/SKILL.md) | 新工作目录导入昇腾计算框架组分布式背景、torch-npu 仓库语境、RFC/PR 模板、worktree 分支规范及通用工作习惯 |
 | [remote-user-bootstrap](skills/remote-user-bootstrap/SKILL.md) | 通过问答生成在已有 root 的服务器上创建普通用户（支持自定义家目录）、配置 docker/sudo/设备权限及 Windows/WSL 免密登录的命令 |
 | [remote-npu-environment](skills/remote-npu-environment/SKILL.md) | 多机器 SSH 排查、普通用户初始化、PyTorch/torch-npu/CANN 版本选择、环境安装及重装恢复 |
 | [ascend-distributed-validation](skills/ascend-distributed-validation/SKILL.md) | 依具体用例执行分布式验证、整理可复现报告，以及采集分析 HCCL 状态与日志 |
