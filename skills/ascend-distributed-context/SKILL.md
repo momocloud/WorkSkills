@@ -1,6 +1,6 @@
 ---
 name: ascend-distributed-context
-description: "为华为昇腾计算框架组分布式小组的工作导入团队背景、torch-npu 仓库语境、需求开发流程（RFC 评审、worktree 分支规范、PR 说明模板）和协作习惯。用于新工作目录初始化、需求开发与 RFC/PR 撰写、接手任务或恢复通用工作记忆；不负责机器连接或开发环境安装。"
+description: "为华为昇腾计算框架组分布式小组的工作导入团队背景、torch-npu 仓库语境、需求开发流程（RFC 评审、worktree 分支规范、提交前 lint、PR 说明模板）和协作习惯。用于新工作目录初始化、需求开发与 RFC/PR 撰写、接手任务或恢复通用工作记忆；不负责机器连接或开发环境安装。"
 ---
 
 # 昇腾分布式工作背景
@@ -72,7 +72,26 @@ description: "为华为昇腾计算框架组分布式小组的工作导入团队
 
 - 多个并行任务各自使用独立分支和独立 worktree，避免相互污染；任务合入或终止后再按需清理对应 worktree。
 
-### 3. PR 说明与合入检查
+### 3. torch-npu 提交前 lint
+
+准备代码提交（包括检视后的补改）时，从该 worktree 的仓库根目录执行目标分支 CI 配置的 lint。torch-npu 使用 `CodeCheck_lintrunner` 时，先用 `lintrunner init` 准备仓库指定的工具版本，再按 `.lintrunner.toml` 对本次 PR 新增和修改的全部文件运行检查。C++ 格式以仓库配置的 clang-format 为准。
+
+提交前先暂存此次准备提交的修改，包括新文件。lintrunner 读取工作区内容，确保待检文件的工作区版本与拟提交版本一致。以下命令覆盖分支上已有的提交和本次暂存改动，`target_ref` 按实际 PR 目标填写：
+
+```bash
+(
+  set -eo pipefail
+  target_ref=upstream/master  # 替换为已更新的目标分支引用
+  base=$(git merge-base "$target_ref" HEAD)
+  lintrunner init
+  git diff --cached --name-only --diff-filter=AM -z "$base" |
+    xargs -0 -r lintrunner --
+)
+```
+
+出现诊断时修复对应文件，检查格式化差异，重新暂存并对完整 PR 范围复跑，确认退出码为 0。复现已有 GitCode CI 失败时，在独立 worktree 检出该次任务的 PR 合并提交（`refs/merge-requests/<PR号>/merge`），使用任务实际比较的目标分支 SHA 与合并提交生成同样的文件清单。PR 中分别记录本地 lint 结果和线上 CI 状态。
+
+### 4. PR 说明与合入检查
 
 - 创建或准备 PR 描述时，先读取 [PR 说明模板](references/pr-template.md)，严格沿用其章节与格式（`【合入来源】`、`【修改方案】`、`【资料变更】`、`【接口变更】`、`【功能验证】`、`【CheckList】`）。
 - **脱敏硬要求**：如有社区 Issue 请关联链接；**严禁在 PR 描述中携带任何内部流程信息**（内部需求链接、内部问题单、内部 Issue 等）。
